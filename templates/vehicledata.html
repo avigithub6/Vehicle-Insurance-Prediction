@@ -3,60 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Vehicle Insurance Prediction</title>
-    <!-- Corrected the CSS path -->
+
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Vehicle Insurance Prediction</h1>
 
-        <form method="post" action="/">
-            <label for="Gender">Gender (1: Male, 0: Female):</label>
-            <input type="number" id="Gender" name="Gender" min="0" max="1" required>
+<div class="page-wrapper">
 
-            <label for="Age">Age:</label>
-            <input type="number" id="Age" name="Age" required>
-
-            <label for="Driving_License">Driving License (0: No, 1: Yes):</label>
-            <input type="number" id="Driving_License" name="Driving_License" min="0" max="1" required>
-
-            <label for="Region_Code">Region Code:</label>
-            <input type="number" step="0.01" id="Region_Code" name="Region_Code" required>
-
-            <label for="Previously_Insured">Previously Insured (0: No, 1: Yes):</label>
-            <input type="number" id="Previously_Insured" name="Previously_Insured" min="0" max="1" required>
-
-            <label for="Annual_Premium">Annual Premium:</label>
-            <input type="number" step="0.01" id="Annual_Premium" name="Annual_Premium" required>
-
-            <label for="Policy_Sales_Channel">Policy Sales Channel:</label>
-            <input type="number" step="0.01" id="Policy_Sales_Channel" name="Policy_Sales_Channel" required>
-
-            <label for="Vintage">Vintage:</label>
-            <input type="number" id="Vintage" name="Vintage" required>
-
-            <label for="Vehicle_Age_lt_1_Year">Vehicle Age < 1 Year (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_lt_1_Year" name="Vehicle_Age_lt_1_Year" min="0" max="1" required>
-
-            <label for="Vehicle_Age_gt_2_Years">Vehicle Age > 2 Years (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_gt_2_Years" name="Vehicle_Age_gt_2_Years" min="0" max="1" required>
-
-            <label for="Vehicle_Damage_Yes">Vehicle Damage (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Damage_Yes" name="Vehicle_Damage_Yes" min="0" max="1" required>
-
-            <button type="submit">Predict</button>
-        </form>
-
-        <form method="get" action="/train">
-            <button type="submit" class="train-button">Train Model</button>
-        </form>
-
-        {% if context %}
-            <div class="result">
-                <h2>Result: {{ context }}</h2>
+    <!-- Header -->
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon">🚘</div>
+            <div>
+                <h2>InsureAI</h2>
+                <p>Vehicle Insurance Prediction System</p>
             </div>
-        {% endif %}
+        </div>
+
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Vehicle Insurance Prediction</h1>
+        <p>
+            Predict whether a customer is interested in vehicle insurance
+            using machine learning. Enter customer and vehicle details
+            to generate an intelligent prediction.
+        </p>
+    </section>
+
+    <div class="main-grid">
+
+        <!-- Prediction Form -->
+        <section class="card">
+
+            <div class="section-heading">
+                <h2>Customer Information</h2>
+                <p>Enter the details below to predict insurance interest.</p>
+            </div>
+
+            <form method="post" action="/">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="Gender">Gender</label>
+                        <input type="number" id="Gender" name="Gender"
+                               min="0" max="1" placeholder="0 or 1" required>
+                        <span class="hint">1 = Male, 0 = Female</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Age">Age</label>
+                        <input type="number" id="Age" name="Age"
+                               min="18" placeholder="Enter age" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Driving_License">Driving License</label>
+                        <input type="number" id="Driving_License"
+                               name="Driving_License" min="0" max="1"
+                               placeholder="0 or 1" required>
+                        <span class="hint">0 = No, 1 = Yes</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Region_Code">Region Code</label>
+                        <input type="number" step="0.01" id="Region_Code"
+                               name="Region_Code" placeholder="Region code" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Previously_Insured">Previously Insured</label>
+                        <input type="number" id="Previously_Insured"
+                               name="Previously_Insured" min="0" max="1"
+                               placeholder="0 or 1" required>
+                        <span class="hint">0 = No, 1 = Yes</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Annual_Premium">Annual Premium</label>
+                        <input type="number" step="0.01" id="Annual_Premium"
+                               name="Annual_Premium" placeholder="Premium amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Policy_Sales_Channel">Policy Sales Channel</label>
+                        <input type="number" step="0.01"
+                               id="Policy_Sales_Channel"
+                               name="Policy_Sales_Channel"
+                               placeholder="Channel code" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vintage">Vintage</label>
+                        <input type="number" id="Vintage" name="Vintage"
+                               placeholder="Number of days" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vehicle_Age_lt_1_Year">Vehicle Age Below 1 Year</label>
+                        <input type="number" id="Vehicle_Age_lt_1_Year"
+                               name="Vehicle_Age_lt_1_Year"
+                               min="0" max="1" placeholder="0 or 1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vehicle_Age_gt_2_Years">Vehicle Age Above 2 Years</label>
+                        <input type="number" id="Vehicle_Age_gt_2_Years"
+                               name="Vehicle_Age_gt_2_Years"
+                               min="0" max="1" placeholder="0 or 1" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="Vehicle_Damage_Yes">Previous Vehicle Damage</label>
+                        <input type="number" id="Vehicle_Damage_Yes"
+                               name="Vehicle_Damage_Yes"
+                               min="0" max="1" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="button">
+                    Generate Prediction →
+                </button>
+
+            </form>
+        </section>
+
+        <!-- Result Section -->
+        <section class="card result-card">
+
+            <h2>Prediction Result</h2>
+            <p>AI-based customer insurance interest analysis</p>
+
+            {% if context and context != "Rendering" %}
+
+                {% set prediction = context|string|lower|trim %}
+                {% set is_yes = prediction in ['response-yes', 'yes', '1', '1.0', 'true'] %}
+
+                <div class="{{ 'result--yes' if is_yes else 'result--no' }}">
+
+                    <div class="result-status">
+                        {{ '✓ INTERESTED' if is_yes else '✕ NOT INTERESTED' }}
+                    </div>
+
+                    <div class="road-container">
+                        <div class="road"></div>
+                        <div class="car">🚙</div>
+                    </div>
+
+                    {% if is_yes %}
+                        <div class="result-message">
+                            <strong>Great! Customer is interested.</strong><br>
+                            The model predicts that this customer may be
+                            interested in purchasing vehicle insurance.
+                        </div>
+                    {% else %}
+                        <div class="result-message">
+                            <strong>Customer is not interested.</strong><br>
+                            The model predicts that this customer may not
+                            be interested in purchasing vehicle insurance.
+                        </div>
+                    {% endif %}
+
+                    <p style="margin-top: 15px;">
+                        Model Output: <strong>{{ context }}</strong>
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+                    <div class="empty-icon">🚗</div>
+                    <strong>Ready to Predict?</strong>
+                    <p>
+                        Enter customer details and click Generate Prediction.
+                        Your result will appear here.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </section>
+
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        Vehicle Insurance Prediction · Powered by Machine Learning
+    </footer>
+
+</div>
+
 </body>
 </html>
